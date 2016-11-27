@@ -1,0 +1,19 @@
+<% if session[:user].nil? %>
+	Nobody
+<% else %>
+	<%= session[:user] %>
+<% end %>
+<% if current_page?(root_path) || current_page?(products_path) %>
+	<button id="remove" type="button" class="btn btn-xs btn-danger">
+		<span class="glyphicon glyphicon-trash"></span>
+	</button>
+<% elsif current_page?(restore_to_list_path) %>
+	<button id="restore" type="button" class="btn btn-xs btn-success">
+		<span class="glyphicon glyphicon glyphicon-repeat"></span>
+	</button>
+
+	<button id="delete" type="button" class="btn btn-xs btn-danger">
+		<span class="glyphicon glyphicon glyphicon-remove"></span>
+	</button>
+	
+<% end %>

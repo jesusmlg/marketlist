@@ -1,0 +1,5 @@
+<ul>
+<% @products.each do |p| %>
+	<li><%= check_box_tag "producs[]", p.id, false, class: 'checkboxbig' %><%= p.name %></li>
+<% end %>
+</ul>
