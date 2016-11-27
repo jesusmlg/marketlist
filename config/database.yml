@@ -13,7 +13,7 @@ default: &default
 
 development:
   <<: *default
-  database: development_lista
+  database: development_marketlist
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
