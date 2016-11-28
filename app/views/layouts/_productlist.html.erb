@@ -1,5 +1,5 @@
 <ul>
 <% @products.each do |p| %>
-	<li><%= check_box_tag "producs[]", p.id, false, class: 'checkboxbig' %><%= p.name %></li>
+	<li><%= check_box_tag "producs[]", p.id, false, class: 'checkboxbig' %><%= p.name %><span class="product_owner">(<%= p.user %>)</span></li>
 <% end %>
 </ul>

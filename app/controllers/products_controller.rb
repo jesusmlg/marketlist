@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
 	def create
 		@product = Product.new(products_params)
 		@product.comprado = 0
-
+		@product.user = session[:user]
 		if @product.save
 			flash[:success] = "Producto guardado correctamente"
 			redirect_to root_path
@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
 		
 		ids_to_remove.each do |id|
 			@product = Product.find(id)
+			@product.user = session[:user]
 			
 			if params[:task] == "remove"
 				@product.comprado = 1
