@@ -61,14 +61,14 @@ class ProductsController < ApplicationController
 			params.require(:product).permit(:name,:user)
 		end
 
-		def allowed?
-			if session[:user].nil?
-				if params[:pass]!=ENV['OPENSHIFT_MARKETLIST_JMLGKEY']
-					redirect_to 'http://www.google.es'
-				else
-					session[:user] = params[:user]
-					redirect_to root_path
-				end
-			end
-		end
+		# def allowed?
+		# 	if session[:user].nil?
+		# 		if params[:pass]!=ENV['OPENSHIFT_MARKETLIST_JMLGKEY']
+		# 			redirect_to 'http://www.google.es'
+		# 		else
+		# 			session[:user] = params[:user]
+		# 			redirect_to root_path
+		# 		end
+		# 	end
+		# end
 end
