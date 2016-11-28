@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-	before_action :allowed?
+	#before_action :allowed?
 
 	def index
 		@products = Product.where(comprado: 0)
