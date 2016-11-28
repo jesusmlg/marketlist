@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
 
 		def allowed?
 			if session[:user].nil?
-				if params[:pass]!="jesusmlg"
+				if params[:pass]!=ENV['OPENSHIFT_MARKETLIST_JMLGKEY']
 					redirect_to 'http://www.google.es'
 				else
 					session[:user] = params[:user]
