@@ -43,7 +43,9 @@ li{
 	margin-bottom: 10px;
 	font-size: 1.5em;
 }
+h3{
 
+}
 /* Might want to wrap a span around your checkbox text */
 #remove, #restore, #delete{
 	font-size: 1.3em;
@@ -56,8 +58,14 @@ li{
 
 }
 .product_owner{
-	font-size:1.0em;
+	font-size: 	0.7em;
 	font-style: italic;
+}
+.products-list{
+
+}
+#products-count{
+	font-size: 0.8em;
 }
 body{
 	padding-top: 70px;
