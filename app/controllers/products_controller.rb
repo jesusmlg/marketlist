@@ -6,6 +6,10 @@ class ProductsController < ApplicationController
 			params[:order] = "updated_at"
 		end
 
+		if params[:order] == "updated_at" then
+			params[:order]+= " DESC"
+		end
+
 		@products = Product.where(comprado: 0).order(params[:order])
 		@product  = Product.new
 	end
@@ -13,6 +17,10 @@ class ProductsController < ApplicationController
 	def restore
 		if params[:order].nil?
 			params[:order] = "updated_at"
+		end
+
+		if params[:order] == "updated_at" then
+			params[:order]+= " DESC"
 		end
 
 		@products = Product.where(comprado: 1).order(params[:order])
@@ -74,7 +82,7 @@ class ProductsController < ApplicationController
 					redirect_to 'http://www.google.es'
 				else
 					session[:user] = params[:user]
-					redirect_to root_path
+					redirect_to list_to_buy_path
 				end
 			end
 		end
