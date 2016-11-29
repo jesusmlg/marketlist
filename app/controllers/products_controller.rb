@@ -1,31 +1,32 @@
 class ProductsController < ApplicationController
-	before_action :allowed?
+	#before_action :allowed?
 
 	def index
-		if params[:order].nil?
-			params[:order] = "updated_at"
-		end
+		myOrder = orderBy(params[:order])
 
-		if params[:order] == "updated_at" then
-			params[:order]+= " DESC"
-		end
-
-		@products = Product.where(comprado: 0).order(params[:order])
+		@products = Product.where(comprado: 0).order(myOrder)
 		@product  = Product.new
 	end
 
 	def restore
-		if params[:order].nil?
-			params[:order] = "updated_at"
-		end
+		myOrder = orderBy(params[:order])
 
-		if params[:order] == "updated_at" then
-			params[:order]+= " DESC"
-		end
-
-		@products = Product.where(comprado: 1).order(params[:order])
+		@products = Product.where(comprado: 1).order(myOrder)
 		@product  = Product.new
 	end
+
+	def orderBy(order)
+		if order.nil?
+			order = "updated_at"
+		end
+
+		if order == "updated_at" then
+			order+= " DESC"
+		end
+
+		return order
+	end
+
 
 	def new
 
