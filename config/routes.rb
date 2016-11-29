@@ -6,7 +6,8 @@ Marketlist::Application.routes.draw do
 
   match '/marcar_comprados', to: 'products#buy', via: 'post'
   match '/remove_restore_from_list', to: 'products#remove_restore_from_list', via: 'post'
-  match '/restore_to_list', to: 'products#restore', via: 'get'
+  match '/list_to_buy(/:order)', to: 'products#index', as: 'list_to_buy', via: 'get'
+  match '/restore_to_list(/:order)', to: 'products#restore', as: 'restore_to_list' , via: 'get'
   match '/in/:pass/:user', to: 'products#index', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

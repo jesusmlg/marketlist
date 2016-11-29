@@ -2,20 +2,31 @@ class ProductsController < ApplicationController
 	before_action :allowed?
 
 	def index
-		@products = Product.where(comprado: 0)
+		if params[:order].nil?
+			params[:order] = "updated_at"
+		end
+
+		@products = Product.where(comprado: 0).order(params[:order])
+		@product  = Product.new
+	end
+
+	def restore
+		if params[:order].nil?
+			params[:order] = "updated_at"
+		end
+
+		@products = Product.where(comprado: 1).order(params[:order])
 		@product  = Product.new
 	end
 
 	def new
+
 	end
 
 	def buy
 		@marcados = params
 	end
 	
-	def restore
-		@products = Product.all	
-	end
 
 	def create
 		@product = Product.new(products_params)
@@ -50,11 +61,6 @@ class ProductsController < ApplicationController
 		end
 
 		redirect_to products_path
-	end
-
-	def restore
-		@products = Product.where(comprado: 1)
-		@product  = Product.new
 	end
 
 	private

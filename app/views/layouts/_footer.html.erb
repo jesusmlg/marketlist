@@ -1,19 +1,30 @@
-<% if session[:user].nil? %>
-	Nobody 
-<% else %>
-	<%= session[:user] %>
-<% end %>
-<% if current_page?(root_path) || current_page?(products_path) %>
-	<button id="remove" type="button" class="btn btn-xs btn-danger">
-		<span class="glyphicon glyphicon-trash"></span>
-	</button>
-<% elsif current_page?(restore_to_list_path) %>
-	<button id="restore" type="button" class="btn btn-xs btn-success">
-		<span class="glyphicon glyphicon glyphicon-repeat"></span>
-	</button>
+<div id="footer-container">
+	<div id="footer-left">
+		
+		<%= link_to '<button type="button" class="btn btn-xs btn-info">Por Nombre</button>'.html_safe, controller: params[:controller], action: params[:action], order: 'name' %>
+				
+		<%= link_to '<button type="button" class="btn btn-xs btn-info">Por Fecha</button>'.html_safe, controller: params[:controller], action: params[:action], order: 'updated_at' %>
+	</div>
 
-	<button id="delete" type="button" class="btn btn-xs btn-danger">
-		<span class="glyphicon glyphicon glyphicon-remove"></span>
-	</button>
-	
-<% end %>
+	<div id="footer-right">
+		<% if session[:user].nil? %>
+			Nobody 
+		<% else %>
+			<%= session[:user] %>
+		<% end %>
+		<% if current_page?(root_path) || current_page?(list_to_buy_path) || current_page?("/list_to_buy/#{params[:order]}") %>
+			<button id="remove" type="button" class="btn btn-xs btn-danger">
+				<span class="glyphicon glyphicon-shopping-cart"></span>
+			</button>
+		<% elsif current_page?("/restore_to_list/#{params[:order]}") || current_page?(restore_to_list_path) %>
+			<button id="restore" type="button" class="btn btn-xs btn-success">
+				<span class="glyphicon glyphicon glyphicon-repeat"></span>
+			</button>
+
+			<button id="delete" type="button" class="btn btn-xs btn-danger">
+				<span class="glyphicon glyphicon glyphicon-remove"></span>
+			</button>
+			
+		<% end %>
+	</div>
+</div>

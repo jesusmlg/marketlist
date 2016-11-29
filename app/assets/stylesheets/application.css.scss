@@ -67,6 +67,27 @@ h3{
 #products-count{
 	font-size: 0.8em;
 }
+#footer-left{
+	float: left;
+	text-align: left;
+	display: inline;
+	width: 48%;
+	margin-left:2%;
+}
+
+#footer-right{
+	float: right;
+	text-align: right;
+	display: inline;
+	width: 48%;
+	margin-right:2%;
+}
+#footer-container{
+	float: none;
+	text-align: center;
+	overflow: hidden;
+	width: 100%;
+}
 body{
 	padding-top: 70px;
  	padding-bottom: 50px;
@@ -75,13 +96,16 @@ body{
 footer{
 	background-color: #004589;
  	width: 100%;
- 	text-align: center;
  	bottom: 0;
  	position: fixed;
  	color:#FFF;	
- 	text-align: right;
 }
-
+button a{
+	color: #FFF;
+}
+.btn-info{
+	margin: 4px 0px 2px 4px;
+}
 /*nav bar */
 $bgDefault      : #004589;
 $bgHighlight    : #0069d0;
