@@ -43,15 +43,7 @@ class ProductsController < ApplicationController
 
 		product = Product.where('lower(name) = lower(?)', product).first
 
-		if product.nil? #si el producto NO está en niguna lista lista
-			return 0
-		elsif product.comprado == 0 #si el producto está en la lista para COMPRARLO
-			return 1
-		elsif product.comprado == 1 #si el producto está en la lista para RECUPERARLO
-			return 2
-		else # resto de casos, no debería existir
-			return 99
-		end
+		return product
 	end
 
 	def create
@@ -61,22 +53,36 @@ class ProductsController < ApplicationController
 
 		producInList = inList?(@product.name)
 
-		if producInList == 0
+		if producInList.nil?
 			if @product.save
 				flash[:success] = "Producto guardado correctamente"
 			else
 				flash[:danger] = "Error al guardar el producto"
 			end
-		elsif producInList == 1
+		elsif producInList.comprado == 0
 			flash[:warning] = "El producto ya está en la lista!"
-		elsif producInList == 2
-			flash[:warning] = "El producto está en la lista de eliminados, recupéralo!"
+		elsif producInList.comprado == 1
+			flash[:warning] = ("El producto <b>"+producInList.name+"</b> está en la lista de eliminados, si quieres recuperarlo pincha "+ link_to('aquí', restore_from_bought_path(producInList), method: :post)).html_safe
 		else	
 			flash[:warning] = "Algo extraño ha sucedido "
 		end
 
 		redirect_to list_to_buy_path
 	
+	end
+
+	def restore_from_bought
+		@product = Product.find(params[:id])
+		@product.comprado = 0
+
+		if @product.save
+				flash[:success] = "Producto restaurado correctamente"
+			else
+				flash[:danger] = "Error al restaurar el producto"
+		end
+		
+		
+		redirect_to list_to_buy_path
 	end
 
 	def remove_restore_from_list
