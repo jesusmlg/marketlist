@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-	#before_action :allowed?
+	before_action :allowed?
 
 	def index
 		myOrder = orderBy(params[:order])
@@ -36,18 +36,44 @@ class ProductsController < ApplicationController
 		@marcados = params
 	end
 	
+	def inList?(product)
+
+		product = Product.where('lower(name) = lower(?)', product).first
+
+		if product.nil? #si el producto NO está en niguna lista lista
+			return 0
+		elsif product.comprado == 0 #si el producto está en la lista para COMPRARLO
+			return 1
+		elsif product.comprado == 1 #si el producto está en la lista para RECUPERARLO
+			return 2
+		else # resto de casos, no debería existir
+			return 99
+		end
+	end
 
 	def create
 		@product = Product.new(products_params)
 		@product.comprado = 0
 		@product.user = session[:user]
-		if @product.save
-			flash[:success] = "Producto guardado correctamente"
-			redirect_to root_path
-		else
-			flash[:danger] = "Error al guardar el producto"
-			render 'index'
+
+		producInList = inList?(@product.name)
+
+		if producInList == 0
+			if @product.save
+				flash[:success] = "Producto guardado correctamente"
+			else
+				flash[:danger] = "Error al guardar el producto"
+			end
+		elsif producInList == 1
+			flash[:warning] = "El producto ya está en la lista!"
+		elsif producInList == 2
+			flash[:warning] = "El producto está en la lista de eliminados, recupéralo!"
+		else	
+			flash[:warning] = "Algo extraño ha sucedido "
 		end
+
+		redirect_to list_to_buy_path
+	
 	end
 
 	def remove_restore_from_list
@@ -69,7 +95,7 @@ class ProductsController < ApplicationController
 				
 		end
 
-		redirect_to products_path
+		redirect_to list_to_buy_path
 	end
 
 	private
