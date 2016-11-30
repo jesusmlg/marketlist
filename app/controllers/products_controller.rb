@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+	
+	include ActionView::Helpers::UrlHelper
+
 	before_action :allowed?
 
 	def index
@@ -111,6 +114,9 @@ class ProductsController < ApplicationController
 					session[:user] = params[:user]
 					redirect_to list_to_buy_path
 				end
+			elsif !session[:user].nil? && session[:user]!=params[:user] && current_page?("/in/#{params[:pass]}/#{params[:user]}")
+					session[:user] = params[:user]
+					redirect_to list_to_buy_path
 			end
 		end
 end
