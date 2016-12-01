@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
 
 	def orderBy(order)
 		if order.nil?
-			order = "updated_at"
+			order = "name"
 		end
 
 		if order == "updated_at" then
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
 
 		if producInList.nil?
 			if @product.save
-				flash[:success] = "Producto guardado correctamente"
+				flash[:success] = ("<b>#{@product.name}</b> guardado correctamente").html_safe
 			else
 				flash[:danger] = "Error al guardar el producto"
 			end
