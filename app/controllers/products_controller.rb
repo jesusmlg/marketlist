@@ -107,6 +107,16 @@ class ProductsController < ApplicationController
 		redirect_to list_to_buy_path
 	end
 
+	def check_important
+		@product = Product.find(params[:id])
+
+		@product.important = !@product.important
+
+		@product.save
+
+		redirect_to list_to_buy_path
+	end
+
 	private
 		def products_params
 			params.require(:product).permit(:name,:user)

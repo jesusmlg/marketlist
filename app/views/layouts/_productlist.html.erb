@@ -1,7 +1,10 @@
 <div class="products-list">
 	<ul>
 	<% @products.each do |p| %>
-		<li><%= check_box_tag "producs[]", p.id, false, class: 'checkboxbig' %><%= p.name %><span class="product_owner">(<%= p.user %>)</span></li>
+		<li>
+			<%= check_box_tag "producs[]", p.id, false, class: 'checkboxbig' %><span id="<%= p.id %>" class="products"><%= p.name %></span><span class="product_owner">(<%= p.user %>)</span>
+			<% if p.important then  %> <span class="important">!</span> <% end %>
+		</li>
 	<% end %>
 	</ul>
 </div>

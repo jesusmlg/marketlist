@@ -43,5 +43,20 @@ $(document).on('ready page:load',function(){
             });
 	});
 
+	$(document).on('dblclick','.products',{},function(){
+		var id = $(this).attr('id');
+
+		$.ajax({
+                url: '/check_important',
+                type: 'POST',
+                dataType: 'script',
+                data: 'id='+id,
+                success: function(msg){
+                	
+                }
+                
+            });
+	});
+
 	
 });

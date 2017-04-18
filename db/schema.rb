@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127141357) do
+ActiveRecord::Schema.define(version: 20170418094502) do
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161127141357) do
     t.integer  "comprado",   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "important"
   end
 
 end
