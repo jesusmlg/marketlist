@@ -91,6 +91,7 @@ class ProductsController < ApplicationController
 		ids_to_remove.each do |id|
 			@product = Product.find(id)
 			@product.user = session[:user]
+			@product.important = false
 			
 			if params[:task] == "remove"
 				@product.comprado = 1
