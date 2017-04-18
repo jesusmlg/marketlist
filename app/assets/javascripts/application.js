@@ -52,14 +52,14 @@ $(document).on('ready page:load',function(){
                 dataType: 'script',
                 data: 'id='+id,
                 success: function(msg){
-                	alert("success");
+                	
                 },
                 error: function(msg){
-                	alert("error");
+                	
                 }
                 
             });
-		alert("termine");
+
 	});
 
 	
