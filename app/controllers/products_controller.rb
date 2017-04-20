@@ -62,7 +62,12 @@ class ProductsController < ApplicationController
 		elsif producInList.comprado == 0
 			flash[:warning] = "El producto ya está en la lista!"
 		elsif producInList.comprado == 1
-			flash[:warning] = ("El producto <b>"+producInList.name+"</b> está en la lista de eliminados, si quieres recuperarlo pincha "+ link_to('aquí', restore_from_bought_path(producInList), method: :post)).html_safe
+			#flash[:warning] = ("El producto <b>"+producInList.name+"</b> está en la lista de eliminados, si quieres recuperarlo pincha "+ link_to('aquí', restore_from_bought_path(producInList), method: :post)).html_safe
+			if restore_from_bought(producInList) then
+				flash[:warning] = ("El producto <b>"+producInList.name+"</b> se ha restaurado de la lista de eliminados").html_safe
+			else
+				flash[:danger] = ("El producto <b>"+producInList.name+"</b> NO se ha podido restaurar de la lista de eliminados").html_safe
+			end
 		else	
 			flash[:warning] = "Algo extraño ha sucedido "
 		end
@@ -85,12 +90,20 @@ class ProductsController < ApplicationController
 		redirect_to list_to_buy_path
 	end
 
+	def restore_from_bought(product)
+		@product = Product.find(product.id)
+		@product.comprado = 0
+		@product.user = session[:user]
+
+		return @product.save
+		
+	end
+
 	def remove_restore_from_list
 		ids_to_remove = params[:checkedValues].split(",")
 		
 		ids_to_remove.each do |id|
 			@product = Product.find(id)
-			@product.user = session[:user]
 			@product.important = false
 			
 			if params[:task] == "remove"
@@ -98,6 +111,7 @@ class ProductsController < ApplicationController
 				@product.save
 			elsif params[:task] == "restore"
 				@product.comprado = 0
+				@product.user = session[:user]
 				@product.save
 			elsif params[:task] == "delete"
 				@product.destroy	
