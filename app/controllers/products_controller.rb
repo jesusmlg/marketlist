@@ -6,15 +6,17 @@ class ProductsController < ApplicationController
 
 	def index
 		myOrder = orderBy(params[:order])
+		session[:list_id] = params[:list_id]
 
-		@products = Product.where(comprado: 0).order(myOrder)
+		@products = Product.where(comprado: 0,list_id: params[:list_id]).order(myOrder)
 		@product  = Product.new
 	end
 
 	def restore
 		myOrder = orderBy(params[:order])
+		session[:list_id] = params[:list_id]
 
-		@products = Product.where(comprado: 1).order(myOrder)
+		@products = Product.where(comprado: 1,list_id: params[:list_id]).order(myOrder)
 		@product  = Product.new
 	end
 
@@ -50,6 +52,7 @@ class ProductsController < ApplicationController
 		@product = Product.new(products_params)
 		@product.comprado = 0
 		@product.user = session[:user]
+		@product.list_id = session[:list_id]
 
 		producInList = inList?(@product.name)
 
@@ -71,8 +74,9 @@ class ProductsController < ApplicationController
 		else	
 			flash[:warning] = "Algo extraño ha sucedido "
 		end
-
-		redirect_to list_to_buy_path
+		
+		redirect_to(list_to_buy_path(order: 'name', list_id: 2))
+		
 	
 	end
 
@@ -134,7 +138,7 @@ class ProductsController < ApplicationController
 
 	private
 		def products_params
-			params.require(:product).permit(:name,:user)
+			params.require(:product).permit(:name,:user,:list_id)
 		end
 
 		def allowed?

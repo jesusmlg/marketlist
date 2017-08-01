@@ -17,6 +17,11 @@
       <ul class="nav navbar-nav">
         <li class=""><%= link_to 'Lista de la Compra', list_to_buy_path %> </li>
         <li class=""><%= link_to 'Recuperar Eliminados', restore_to_list_path %> </li>
+        <% if session[:user] == "jesus" then %> <!-- remove this after summer -->
+          <hr>
+          <li class=""><%= link_to 'Comprar Jesús', list_to_buy_path(order: "name", list_id: 2) %> </li>
+          <li class=""><%= link_to 'Recuperar Jesús', restore_to_list_path(list_id: 2) %> </li>
+        <% end %>
       </ul>
       
       

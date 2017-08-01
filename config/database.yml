@@ -9,11 +9,12 @@ default: &default
   username: <%= ENV['OPENSHIFT_MYSQL_DB_USERNAME'] %>
   password: <%= ENV['OPENSHIFT_MYSQL_DB_PASSWORD'] %>
   host: <%= ENV['OPENSHIFT_MYSQL_DB_HOST'] %>
-  port: 3306
+  
 
 development:
   <<: *default
   database: development_marketlist
+  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -21,7 +22,9 @@ development:
 test:
   <<: *default
   database: development_marketlist
+  port: 3306
 
 production:
   <<: *default
-  database: marketlist
+  database: <%= ENV['OPENSHIFT_MYSQL_DB_NAME'] %>
+  port: 5432
