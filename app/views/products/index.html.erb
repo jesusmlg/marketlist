@@ -1,3 +1,11 @@
+<% content_for :menutop do %>
+	<%= render 'layouts/menutop' %>
+<% end %>
+
 <h3>Cosas para comprar: <span id="products-count">(<%= @products.count %>)</span></h3> 
 
 <%= render 'layouts/productlist' %>
+
+<% content_for :footer do %>
+	<%= render 'layouts/footer' %>
+<% end %>

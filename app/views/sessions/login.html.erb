@@ -1,0 +1,12 @@
+<h1>Acceder</h1>
+ 
+ <%= form_for(:session, url: login_path) do |f| %>
+
+  <%= f.label :user %>
+  <%= f.text_field :user, class: 'form-control' %>
+
+  <%= f.label :pass %>
+  <%= f.password_field :pass, class: 'form-control' %>
+
+  <%= f.submit "Acceder", class: "btn btn-primary" %>
+<% end %>

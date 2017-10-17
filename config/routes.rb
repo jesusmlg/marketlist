@@ -13,6 +13,9 @@ Marketlist::Application.routes.draw do
   match '/check_important', to: 'products#check_important', via: 'post'
 
   match '/list/:list_id/:order', to: 'products#index',as:'multi_list', via: 'get'
+  match '/login', to: 'sessions#login', as:'login', via: 'get'
+  match '/login', to: 'sessions#check_login', as:'checklogin', via: 'post'
+  match '/logout', to: 'sessions#logout', as:'logout', via: 'delete'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

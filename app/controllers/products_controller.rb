@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
 			flash[:warning] = "Algo extraño ha sucedido "
 		end
 		
-		redirect_to(list_to_buy_path(order: 'name', list_id: 2))
+		redirect_to(list_to_buy_path(order: 'name', list_id: params[:list_id]))
 		
 	
 	end
@@ -142,16 +142,10 @@ class ProductsController < ApplicationController
 		end
 
 		def allowed?
-			if session[:user].nil?
-				if params[:pass]!=ENV['OPENSHIFT_MARKETLIST_JMLGKEY']
-					redirect_to 'http://www.google.es'
-				else
-					session[:user] = params[:user]
-					redirect_to list_to_buy_path
-				end
-			elsif !session[:user].nil? && session[:user]!=params[:user] && current_page?("/in/#{params[:pass]}/#{params[:user]}")
-					session[:user] = params[:user]
-					redirect_to list_to_buy_path
+			if session[:user].nil? && cookies[:marketlm].nil?
+				redirect_to login_path
+			elsif !cookies[:marketlm].nil?
+				session[:user] = cookies[:marketlm]
 			end
 		end
 end
