@@ -51,6 +51,7 @@ class ProductsController < ApplicationController
 	def create
 		@product = Product.new(products_params)
 		@product.comprado = 0
+		@product.important = false
 		@product.user = session[:user]
 		@product.list_id = session[:list_id]
 
