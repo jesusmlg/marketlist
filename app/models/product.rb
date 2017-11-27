@@ -1,3 +1,3 @@
 class Product < ActiveRecord::Base
-	default_scope { order(important: :asc) }
+	default_scope { order(important: :desc) }
 end
