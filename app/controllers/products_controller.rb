@@ -50,8 +50,6 @@ class ProductsController < ApplicationController
 
 	def create
 		@product = Product.new(products_params)
-		@product.comprado = 0
-		@product.important = false
 		@product.user = session[:user]
 		@product.list_id = session[:list_id]
 
@@ -65,8 +63,7 @@ class ProductsController < ApplicationController
 			end
 		elsif producInList.comprado == 0
 			flash[:warning] = "El producto ya está en la lista!"
-		elsif producInList.comprado == 1
-			#flash[:warning] = ("El producto <b>"+producInList.name+"</b> está en la lista de eliminados, si quieres recuperarlo pincha "+ link_to('aquí', restore_from_bought_path(producInList), method: :post)).html_safe
+		elsif producInList.comprado == 1			
 			if restore_from_bought(producInList) then
 				flash[:warning] = ("El producto <b>"+producInList.name+"</b> se ha restaurado de la lista de eliminados").html_safe
 			else
